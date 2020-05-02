@@ -5,7 +5,7 @@ import hashlib
 # Variáveis Primárias
 
 url_codenation = "https://api.codenation.dev/v1/challenge/dev-ps/generate-data"
-token = "80f8b66c0eb19e38085e9555dd19cb71fceab47f"
+token = ""
 
 # 1. Requisição HTTP do site
 reqHttp = requests.get(url_codenation, params={"token": token})
@@ -21,7 +21,7 @@ reqJson = json.loads(reqHttp.text)
 # print(r.url)
 # print(r.content)
 
-with open("/home/ks18/Desktop/FaculdadeLinux/AceleraDev - Codenation/answer.json", "w") as file:
+with open("answer.json", "w") as file:
     json.dump(reqJson, file, ensure_ascii=False, indent=4)
 
 # 2. Decriptação
@@ -54,12 +54,11 @@ reqJson['decifrado'] = decryptMessage
 reqJson['resumo_criptografico'] = summary
 print(reqJson)
 
-with open("/home/ks18/Desktop/FaculdadeLinux/AceleraDev - Codenation/answer.json", "w") as file:
+with open("answer.json", "w") as file:
     json.dump(reqJson, file, ensure_ascii=False, indent=4)
 
-answer = {"answer": open("/home/ks18/Desktop/FaculdadeLinux/AceleraDev - Codenation/answer.json", "rb")}
+answer = {"answer": open("answer.json", "rb")}
 url_resultado = "https://api.codenation.dev/v1/challenge/dev-ps/submit-solution"
-#url_resultado = 'https://httpbin.org/post'
 
 resultados = requests.post(url_resultado, files=answer, params={"token": token})
 print(resultados.status_code)
